@@ -70,4 +70,4 @@ O código está pela metade, e você deverá dar continuidade obedecendo as regr
 * Foram adicionadas bibliotecas para gerenciamento de arquivos json e do log do sistema
 # Obs:
 * O projeto foi configurado para utilizar o SQLLocalDB, uma versão mais leve do SQL Server. Caso for utilizar o SQL Server, ajustar as propriedades no arquivo appsettings.json
-* e fazer as alterações referentes a conexão com o banco de dados na classe Program.cs, adicionando os parâmetros necessários a variável connectionBuilder. 
+e fazer as alterações referentes a conexão com o banco de dados na classe Program.cs, adicionando os parâmetros necessários a variável connectionBuilder. 

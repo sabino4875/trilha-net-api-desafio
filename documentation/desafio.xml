@@ -1,0 +1,666 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TrilhaApiDesafio</name>
+    </assembly>
+    <members>
+        <member name="T:TrilhaApiDesafio.Context.OrganizadorContext">
+            <summary>
+            Classe que implementa o acesso ao banco de dados utilizado pelo sistema
+            </summary>
+            <param name="options">Configurações do servidor de dados</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Context.OrganizadorContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{TrilhaApiDesafio.Context.OrganizadorContext})">
+            <summary>
+            Classe que implementa o acesso ao banco de dados utilizado pelo sistema
+            </summary>
+            <param name="options">Configurações do servidor de dados</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Context.OrganizadorContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Rotina utilizada no mapeamento e inicialização do banco de dados
+            </summary>
+            <param name="modelBuilder">Classe responsável pelas rotinas para o mapeamento das entidades para uma tabela no banco de dados</param>
+        </member>
+        <member name="P:TrilhaApiDesafio.Context.OrganizadorContext.Tarefas">
+            <summary>
+            Representação da entidade tarefas no banco de dados
+            </summary>
+        </member>
+        <member name="T:TrilhaApiDesafio.Controllers.TarefaController">
+            <summary>
+            Classe contendo os métodos relacionados ao acesso as rotinas para manipulação e consulta de dados da entidade tarefa
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Controllers.TarefaController.#ctor(TrilhaApiDesafio.Services.ITarefaService,FluentValidation.IValidator{TrilhaApiDesafio.ViewModels.CreateTarefaViewModel},FluentValidation.IValidator{TrilhaApiDesafio.ViewModels.TarefaViewModel},TrilhaApiDesafio.Helpers.ApplicationRoutines)">
+            <summary>
+            Método construtor da classe
+            </summary>
+            <param name="service">Classe contendo rotinas para a manipulação de dados da entidade tarefa</param>
+            <param name="createValidation">Classe contendo rotinas para a validação da inclusão de uma entidade tarefa</param>
+            <param name="updateValidation">Classe contendo rotinas para a validação da atualização de uma entidade tarefa</param>
+            <param name="routines">Classe contendo rotinas para utilização no sistema</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Controllers.TarefaController.ObterPorId(System.String)">
+            <summary>
+            Localiza um registro pelo seu id
+            </summary>
+            <param name="id">Id da tarefa</param>
+            <returns></returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Controllers.TarefaController.ObterTodos">
+            <summary>
+            Recupera todos os registros
+            </summary>
+            <returns>Todos os registros</returns>
+            <response code="200">A listagem de tarefas</response>
+            <response code="500">Houve um erro ao tentar listar os registros</response>
+        </member>
+        <member name="M:TrilhaApiDesafio.Controllers.TarefaController.ObterPorTitulo(System.String)">
+            <summary>
+            Recupera todos os registros utilizando o título informado
+            </summary>
+            <param name="titulo">Texto contendo uma parte de um título de tarefa</param>
+            <returns>Todos os registros</returns>
+            <response code="200">A listagem de tarefas</response>
+            <response code="400">Título informado inválido</response>
+            <response code="500">Houve um erro ao tentar listar os registros</response>
+        </member>
+        <member name="M:TrilhaApiDesafio.Controllers.TarefaController.ObterPorData(System.String)">
+            <summary>
+            Recupera todos os registros utilizando a data informada
+            </summary>
+            <param name="data">Data cadastrada na tarefa</param>
+            <returns>Todos os registros</returns>
+            <response code="200">A listagem de tarefas</response>
+            <response code="400">Data informada inválida</response>
+            <response code="500">Houve um erro ao tentar listar os registros</response>
+        </member>
+        <member name="M:TrilhaApiDesafio.Controllers.TarefaController.ObterPorStatus(System.String)">
+            <summary>
+            Recupera todos os registros utilizando o status
+            </summary>
+            <param name="status">Status da tarefa</param>
+            <returns>Todos os registros</returns>
+            <response code="200">A listagem de tarefas</response>
+            <response code="400">Status informado inválido</response>
+            <response code="500">Houve um erro ao tentar listar os registros</response>
+        </member>
+        <member name="M:TrilhaApiDesafio.Controllers.TarefaController.Criar(TrilhaApiDesafio.ViewModels.CreateTarefaViewModel)">
+            <summary>
+            Insere uma nova tarefa
+            </summary>
+            <param name="tarefa">Dados da tarefa</param>
+            <returns>A url para consulta da tarefa criada</returns>
+            <response code="201">Uri contendo dados da tarefa criada</response>
+            <response code="400">Tarefa informada inválida</response>
+            <response code="422">Erros na validação da tarefa</response>
+            <response code="500">Houve um erro ao tentar incluir o registro</response>
+        </member>
+        <member name="M:TrilhaApiDesafio.Controllers.TarefaController.Atualizar(System.String,TrilhaApiDesafio.ViewModels.TarefaViewModel)">
+            <summary>
+            Altera a tarefa 
+            </summary>
+            <param name="id">Código de identificação da tarefa</param>
+            <param name="tarefa">Dados da tarefa</param>
+            <returns></returns>
+            <response code="204">Tarefa alterada com sucesso</response>
+            <response code="400">Tarefa informada inválida</response>
+            <response code="422">Erros na validação da tarefa</response>
+            <response code="500">Houve um erro ao tentar alterar o registro</response>
+        </member>
+        <member name="M:TrilhaApiDesafio.Controllers.TarefaController.Deletar(System.String)">
+            <summary>
+            Exclui a tarefa
+            </summary>
+            <param name="id">Código de identificação da tarefa</param>
+            <returns></returns>
+            <response code="204">Tarefa excluída com sucesso</response>
+            <response code="400">Id informado inválido</response>
+            <response code="500">Houve um erro ao tentar excluir o registro</response>
+        </member>
+        <member name="T:TrilhaApiDesafio.Extensions.EnumExtension">
+            <summary>
+            Métodos de extensão da classe Enum
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Extensions.EnumExtension.GetDescription(System.Enum)">
+            <summary>
+            Recupera a descrição do valor selecionado na enum
+            </summary>
+            <param name="value">Valor selecionado na enum</param>
+            <returns>A descrição do valor selecionado na enum</returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.Extensions.FluentValidationExtension">
+            <summary>
+            Métodos de extensão da classe ValidationResult
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Extensions.FluentValidationExtension.ToDictionary(FluentValidation.Results.ValidationResult)">
+            <summary>
+            Converte os erros para um dicionário de dados
+            </summary>
+            <param name="validationResult">O retorno de um validador</param>
+            <returns>O dicionário gerado</returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.Extensions.StringExtension">
+            <summary>
+            Métodos de extensão da classe String
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Extensions.StringExtension.ParseEnum``1(System.String,``0)">
+            <summary>
+            Recupera a descrição do valor selecionado na enum
+            </summary>
+            <typeparam name="T">Enum que será validado</typeparam>
+            <param name="value">Descrição do enum</param>
+            <param name="defaultValue">Valor padrão para o caso de algum error</param>
+            <returns>Caso correto, retorna o enum referente ao valor informado, caso contrário, o valor padrão.</returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.Helpers.ApplicationRoutines">
+            <summary>
+            Classe contendo rotinas utilizadas no sistema
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Helpers.ApplicationRoutines.ContainsValue(System.String)">
+            <summary>
+            Verifica se um campo String contem algum valor informado.
+            </summary>
+            <param name="value">Valor a ser verificado</param>
+            <returns></returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.Migrations.Initial">
+            <inheritdoc />
+        </member>
+        <member name="M:TrilhaApiDesafio.Migrations.Initial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:TrilhaApiDesafio.Migrations.Initial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:TrilhaApiDesafio.Migrations.Initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:TrilhaApiDesafio.Models.EnumStatusTarefa">
+            <summary>
+            Estados da tarefa
+            </summary>
+        </member>
+        <member name="F:TrilhaApiDesafio.Models.EnumStatusTarefa.Invalido">
+            <summary>
+            Invalido
+            </summary>
+        </member>
+        <member name="F:TrilhaApiDesafio.Models.EnumStatusTarefa.Pendente">
+            <summary>
+            Tarefa pendente
+            </summary>
+        </member>
+        <member name="F:TrilhaApiDesafio.Models.EnumStatusTarefa.Finalizado">
+            <summary>
+            Tarefa finalizada
+            </summary>
+        </member>
+        <member name="T:TrilhaApiDesafio.Models.Tarefa">
+            <summary>
+            Classe que implementa a entidade tarefa
+            </summary>
+            <param name="id">Código de identificação da tarefa</param>
+            <param name="titulo">Título da tarefa</param>
+            <param name="descricao">Descrição da tarefa</param>
+            <param name="data">Data de inicialização da tarefa</param>
+            <param name="status">Status da tarefa</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Models.Tarefa.#ctor(System.Int32,System.String,System.String,System.DateTime,TrilhaApiDesafio.Models.EnumStatusTarefa)">
+            <summary>
+            Classe que implementa a entidade tarefa
+            </summary>
+            <param name="id">Código de identificação da tarefa</param>
+            <param name="titulo">Título da tarefa</param>
+            <param name="descricao">Descrição da tarefa</param>
+            <param name="data">Data de inicialização da tarefa</param>
+            <param name="status">Status da tarefa</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Models.Tarefa.#ctor(System.String,System.String,System.DateTime,TrilhaApiDesafio.Models.EnumStatusTarefa)">
+            <summary>
+            Método construtor da classe
+            </summary>
+            <param name="titulo">Título da tarefa</param>
+            <param name="descricao">Descrição da tarefa</param>
+            <param name="data">Data de inicialização da tarefa</param>
+            <param name="status">Status da tarefa</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Models.Tarefa.#ctor">
+            <summary>
+            Método construtor da classe
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.Models.Tarefa.Id">
+            <summary>
+            Código de identificação da entidade
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.Models.Tarefa.Titulo">
+            <summary>
+            Título 
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.Models.Tarefa.Descricao">
+            <summary>
+            Descricao
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.Models.Tarefa.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.Models.Tarefa.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+        <member name="T:TrilhaApiDesafio.Profiles.TarefaProfile">
+            <summary>
+            Classe responsável pelo mapeamento da entidade Tarefa 
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Profiles.TarefaProfile.#ctor">
+            <summary>
+            Método construtor da classe
+            </summary>
+        </member>
+        <member name="T:TrilhaApiDesafio.Repositories.ITarefaRepository">
+            <summary>
+            Contrato representando as rotinas de manipulação de dados de uma entidade do sistema
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.ITarefaRepository.Insert(TrilhaApiDesafio.Models.Tarefa)">
+            <summary>
+            Inclui um novo registro
+            </summary>
+            <param name="entity">Entidade a ser cadastrada</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.ITarefaRepository.Update(System.Int32,TrilhaApiDesafio.Models.Tarefa)">
+            <summary>
+            Altera o registro informado
+            </summary>
+            <param name="id">código de identificação da entidade</param>
+            <param name="entity">Entidade a ser atualizada</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.ITarefaRepository.Delete(System.Linq.Expressions.Expression{System.Func{TrilhaApiDesafio.Models.Tarefa,System.Boolean}})">
+            <summary>
+            Exclui o registro informado
+            </summary>
+            <param name="filter">Filtro utilizado na exclusão do registro</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.ITarefaRepository.Find(System.Linq.Expressions.Expression{System.Func{TrilhaApiDesafio.Models.Tarefa,System.Boolean}})">
+            <summary>
+            Localiza um registro
+            </summary>
+            <param name="filter">Filtro utilizado na consulta</param>
+            <returns>O registro referente a entidade, caso exista</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.ITarefaRepository.ListAll(System.Linq.Expressions.Expression{System.Func{TrilhaApiDesafio.Models.Tarefa,System.Boolean}},System.Int32,System.Int32)">
+            <summary>
+            Lista os registros da entidade
+            </summary>
+            <param name="filter">Filtro utilizado na consulta</param>
+            <param name="limit">Quantidade de registros a serem recuperados na consulta</param>
+            <param name="offset">Quantos registros "pular" na consulta</param>
+            <returns>Listagem com os registros da entidade, de acordo com o filtro informado</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.ITarefaRepository.Count(System.Linq.Expressions.Expression{System.Func{TrilhaApiDesafio.Models.Tarefa,System.Boolean}})">
+            <summary>
+            Contagem de registros
+            </summary>
+            <param name="filter">Filtro utilizado na consulta</param>
+            <returns>O total de registros da entidade no banco de dados</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.ITarefaRepository.NextId">
+            <summary>
+            Recupera o id do próximo registro a ser cadastrado no banco de dados
+            </summary>
+            <returns>O id do registro</returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.Repositories.TarefaRepository">
+            <summary>
+            Classe representando as rotinas de manipulação de dados de uma entidade do sistema
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.#ctor(TrilhaApiDesafio.Context.OrganizadorContext)">
+            <summary>
+            Método construtor da classe
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.Dispose(System.Boolean)">
+            <summary>
+            Métoodo destrutor da classe
+            </summary>
+            <param name="disposing">Executa rotinas adicionais ao remover a classe da memória</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.Dispose">
+            <summary>
+            Métoodo destrutor da classe
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.Finalize">
+            <summary>
+            Métoodo destrutor da classe - Garbage Collection
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.Insert(TrilhaApiDesafio.Models.Tarefa)">
+            <summary>
+            Inclui um novo registro
+            </summary>
+            <param name="entity">Entidade a ser cadastrada</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.Update(System.Int32,TrilhaApiDesafio.Models.Tarefa)">
+            <summary>
+            Altera o registro informado
+            </summary>
+            <param name="id">código de identificação da entidade</param>
+            <param name="entity">Entidade a ser atualizada</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.Delete(System.Linq.Expressions.Expression{System.Func{TrilhaApiDesafio.Models.Tarefa,System.Boolean}})">
+            <summary>
+            Exclui o registro informado
+            </summary>
+            <param name="filter">Filtro utilizado na exclusão do registro</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.Find(System.Linq.Expressions.Expression{System.Func{TrilhaApiDesafio.Models.Tarefa,System.Boolean}})">
+            <summary>
+            Localiza um registro
+            </summary>
+            <param name="filter">Filtro utilizado na consulta</param>
+            <returns>O registro referente a entidade, caso exista</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.ListAll(System.Linq.Expressions.Expression{System.Func{TrilhaApiDesafio.Models.Tarefa,System.Boolean}},System.Int32,System.Int32)">
+            <summary>
+            Lista os registros da entidade
+            </summary>
+            <param name="filter">Filtro utilizado na consulta</param>
+            <param name="limit">Quantidade de registros a serem recuperados na consulta</param>
+            <param name="offset">Quantos registros "pular" na consulta</param>
+            <returns>Listagem com os registros da entidade, de acordo com o filtro informado</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.Count(System.Linq.Expressions.Expression{System.Func{TrilhaApiDesafio.Models.Tarefa,System.Boolean}})">
+            <summary>
+            
+            </summary>
+            <param name="filter">Filtro utilizado na consulta</param>
+            <returns>O total de registros da entidade no banco de dados</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Repositories.TarefaRepository.NextId">
+            <summary>
+            Recupera o id do próximo registro a ser cadastrado no banco de dados
+            </summary>
+            <returns>O id do registro</returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.Services.EnumTarefaCriteriaField">
+            <summary>
+            Enum contendo as opções de filtro
+            </summary>
+        </member>
+        <member name="F:TrilhaApiDesafio.Services.EnumTarefaCriteriaField.Todos">
+            <summary>
+            Todos os registros
+            </summary>
+        </member>
+        <member name="F:TrilhaApiDesafio.Services.EnumTarefaCriteriaField.PorTitulo">
+            <summary>
+            Contendo um valor no titulo
+            </summary>
+        </member>
+        <member name="F:TrilhaApiDesafio.Services.EnumTarefaCriteriaField.PorData">
+            <summary>
+            Pela da da tarefa
+            </summary>
+        </member>
+        <member name="F:TrilhaApiDesafio.Services.EnumTarefaCriteriaField.PorStatus">
+            <summary>
+            Pelo status da tarefa
+            </summary>
+        </member>
+        <member name="T:TrilhaApiDesafio.Services.ITarefaService">
+            <summary>
+            Contrato contendo os métodos para manipulação de dados no sistema
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.ITarefaService.Insert(TrilhaApiDesafio.ViewModels.CreateTarefaViewModel)">
+            <summary>
+            Inclui um novo registro
+            </summary>
+            <param name="entity">Entidade a ser cadastrada</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.ITarefaService.Update(System.Int32,TrilhaApiDesafio.ViewModels.TarefaViewModel)">
+            <summary>
+            Altera o registro informado
+            </summary>
+            <param name="id">código de identificação da entidade</param>
+            <param name="entity">Entidade a ser atualizada</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.ITarefaService.Delete(System.Int32)">
+            <summary>
+            Exclui o registro informado
+            </summary>
+            <param name="id">Código de identificação da tarefa</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.ITarefaService.Find(System.Int32)">
+            <summary>
+            Localiza um registro
+            </summary>
+            <param name="id">Código de identificação da tarefa</param>
+            <returns>O registro referente a entidade, caso exista</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.ITarefaService.ListAll(TrilhaApiDesafio.Services.EnumTarefaCriteriaField,System.Object,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Lista os registros da entidade
+            </summary>
+            <param name="criteriaField">Critério de consulta</param>
+            <param name="criteriaValue">Valor utilizado na consulta</param>
+            <param name="limit">Quantidade de registros a serem recuperados na consulta</param>
+            <param name="offset">Quantos registros "pular" na consulta</param>
+            <returns>Listagem com os registros da entidade, de acordo com o filtro informado</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.ITarefaService.Exists(System.Int32)">
+            <summary>
+            Verifica se uma tarefa existe
+            </summary>
+            <param name="id">Id da tarefa</param>
+            <returns>Se a tarefa existe</returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.Services.TarefaService">
+            <summary>
+            Classe contendo os métodos para manipulação de dados no sistema
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.#ctor(TrilhaApiDesafio.Repositories.ITarefaRepository,AutoMapper.IMapper,TrilhaApiDesafio.Helpers.ApplicationRoutines)">
+            <summary>
+            Método construtor da classe
+            </summary>
+            <param name="repository">Classe contendo os métodos para manipulação de dados</param>
+            <param name="mapper">Classe contendo os métodos para o mapeamento da entidade</param>
+            <param name="routines">Classe contendo os métodos de uso geral no sistema</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.Dispose(System.Boolean)">
+            <summary>
+            Método destrutor da classe
+            </summary>
+            <param name="disposing">Executa métodos adicionais</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.Dispose">
+            <summary>
+            Método destrutor da classe
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.Finalize">
+            <summary>
+            Método destrutor da classe
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.Insert(TrilhaApiDesafio.ViewModels.CreateTarefaViewModel)">
+            <summary>
+            Inclui um novo registro
+            </summary>
+            <param name="entity">Entidade a ser cadastrada</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.Update(System.Int32,TrilhaApiDesafio.ViewModels.TarefaViewModel)">
+            <summary>
+            Altera o registro informado
+            </summary>
+            <param name="id">código de identificação da entidade</param>
+            <param name="entity">Entidade a ser atualizada</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.Delete(System.Int32)">
+            <summary>
+            Exclui o registro informado
+            </summary>
+            <param name="id">Código de identificação da tarefa</param>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.Find(System.Int32)">
+            <summary>
+            Localiza um registro
+            </summary>
+            <param name="id">Código de identificação da tarefa</param>
+            <returns>O registro referente a entidade, caso exista</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.ListAll(TrilhaApiDesafio.Services.EnumTarefaCriteriaField,System.Object,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Lista os registros da entidade
+            </summary>
+            <param name="criteriaField">Critério de consulta</param>
+            <param name="criteriaValue">Valor utilizado na consulta</param>
+            <param name="limit">Quantidade de registros a serem recuperados na consulta</param>
+            <param name="offset">Quantos registros "pular" na consulta</param>
+            <returns>Listagem com os registros da entidade, de acordo com o filtro informado</returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Services.TarefaService.Exists(System.Int32)">
+            <summary>
+            Verifica se uma tarefa existe
+            </summary>
+            <param name="id">Id da tarefa</param>
+            <returns>Se a tarefa existe</returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.TableConfigurations.TarefaConfiguration">
+            <summary>
+            Classe que representa o mapeamento da entidade tarefa para o banco de dados
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.TableConfigurations.TarefaConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{TrilhaApiDesafio.Models.Tarefa})">
+            <summary>
+            Rotina para configuração do mapeamento da entidade para o banco de dados
+            </summary>
+            <param name="builder">Api contendo métodos para o mapeamento da classe para o banco de dados</param>
+            <see href="https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=fluent-api"/>
+        </member>
+        <member name="T:TrilhaApiDesafio.Validation.CreateTarefaValidation">
+            <summary>
+            Classe responsável pela validação de uma inclusão na entidade tarefa
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Validation.CreateTarefaValidation.#ctor">
+            <summary>
+            Método construtor da classe
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Validation.CreateTarefaValidation.IsValidDate(System.Nullable{System.DateTime})">
+            <summary>
+            Rotina para validação do campo data
+            </summary>
+            <param name="date">Valor a ser validado</param>
+            <returns></returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.Validation.TarefaValidation">
+            <summary>
+            Classe responsável pela validação de uma alteração na entidade tarefa
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Validation.TarefaValidation.#ctor(TrilhaApiDesafio.Helpers.ApplicationRoutines)">
+            <summary>
+            Método construtor da classe
+            </summary>
+        </member>
+        <member name="M:TrilhaApiDesafio.Validation.TarefaValidation.IsValidDate(System.Nullable{System.DateTime})">
+            <summary>
+            Rotina para validação do campo data
+            </summary>
+            <param name="date">Valor a ser validado</param>
+            <returns></returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Validation.TarefaValidation.IsValidStatus(System.String)">
+            <summary>
+            Rotina para validação do campo status
+            </summary>
+            <param name="status">Valor a ser validado</param>
+            <returns></returns>
+        </member>
+        <member name="M:TrilhaApiDesafio.Validation.TarefaValidation.IsValidId(System.Nullable{System.Int32})">
+            <summary>
+            Rotina para validação do campo id
+            </summary>
+            <param name="id">Valor a ser validado</param>
+            <returns></returns>
+        </member>
+        <member name="T:TrilhaApiDesafio.ViewModels.CreateTarefaViewModel">
+            <summary>
+            Classe que representa o mapeamento de uma entidade tarefa para inclusão
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.ViewModels.CreateTarefaViewModel.Titulo">
+            <summary>
+            Título 
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.ViewModels.CreateTarefaViewModel.Descricao">
+            <summary>
+            Descricao
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.ViewModels.CreateTarefaViewModel.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="T:TrilhaApiDesafio.ViewModels.MessageViewModel">
+            <summary>
+            Classe que representa o mapeamento de uma mensagem
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.ViewModels.MessageViewModel.Message">
+            <summary>
+            Mensagem
+            </summary>
+        </member>
+        <member name="T:TrilhaApiDesafio.ViewModels.TarefaViewModel">
+            <summary>
+            Classe que representa o mapeamento de uma entidade tarefa para edição / consulta
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.ViewModels.TarefaViewModel.Id">
+            <summary>
+            Código de identificação da entidade
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.ViewModels.TarefaViewModel.Titulo">
+            <summary>
+            Título 
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.ViewModels.TarefaViewModel.Descricao">
+            <summary>
+            Descricao
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.ViewModels.TarefaViewModel.Data">
+            <summary>
+            Data
+            </summary>
+        </member>
+        <member name="P:TrilhaApiDesafio.ViewModels.TarefaViewModel.Status">
+            <summary>
+            Status
+            </summary>
+        </member>
+    </members>
+</doc>

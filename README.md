@@ -56,3 +56,18 @@ Esse é o schema (model) de Tarefa, utilizado para passar para os métodos que e
 
 ## Solução
 O código está pela metade, e você deverá dar continuidade obedecendo as regras descritas acima, para que no final, tenhamos um programa funcional. Procure pela palavra comentada "TODO" no código, em seguida, implemente conforme as regras acima.
+
+## Implementação
+# Ajustes feitos no projeto:
+* Alteração da versão do .Net Core para 8.0
+* Criação de arquivo de solução
+* Aplicação do conceito de arquitetura limpa, para melhoria e escalabilidade do projeto
+* Ajustes no arquivo csprj, para validações do código e geração de documentação
+* Criação de arquivo para mapeamento da tabela no Entity Framework
+* Criação de arquivos de extensão e rotinas auxiliares
+* Criação de classes para a validação dos dados
+* Documentação da api
+* Foram adicionadas bibliotecas para gerenciamento de arquivos json e do log do sistema
+# Obs:
+* O projeto foi configurado para utilizar o SQLLocalDB, uma versão mais leve do SQL Server. Caso for utilizar o SQL Server, ajustar as propriedades no arquivo appsettings.json
+e fazer as alterações referentes a conexão com o banco de dados na classe Program.cs, adicionando os parâmetros necessários a variável connectionBuilder. 
